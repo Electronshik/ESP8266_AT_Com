@@ -1,0 +1,29 @@
+{
+  "name": "ESP8266",
+  "description": "Hello World!",
+  "version": "1.0",
+  "icons": {
+    "48": "icon/48x48.png",
+    "128": "icon/128x128.png"
+  },
+  "manifest_version": 2,
+  "minimum_chrome_version": "31.0",
+  "offline_enabled": true,
+  "app": {
+    "background": {
+      "scripts": ["js/background.js"]
+    }
+  },
+  "permissions": [
+    	"serial"
+  ],
+  "file_handlers": {
+    "text": {
+      "types": ["application/javascript",
+                "application/json",
+                "application/xml",
+                "text/*"],
+      "extensions": ["c", "cc", "cpp", "css", "h", "hs", "html", "js", "json", "md", "py", "textile", "txt", "xml", "yaml"]
+    }
+  }
+}

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Text</title>
+  <meta charset="utf-8" />
+  <link href="style.css" rel="stylesheet">
+  <script src="js/jquery-3.1.1.min.js" type="text/javascript"></script>
+  <!-- <script src="js/main.js" type="text/javascript"></script> -->
+</head>
+<body>
+    <p id="list">Available serial ports:
+    <button id="button1">Open port</button>
+        <button id="close">Close port</button>
+					<select id="ports">
+					 </select>
+					<select id="baudrate">
+					 <option value="1200">1200</option>
+					 <option value="2400">2400</option>
+					 <option value="4800">4800</option>
+					 <option value="9600">9600</option>
+					 <option value="14400">14400</option>
+					 <option value="19200">19200</option>
+					 <option value="38400">38400</option>
+					 <option value="57600">57600</option>
+					 <option value="115200" selected="">115200</option>
+					 <option value="128000">128000</option>
+					 <option value="256000">256000</option>
+					</select>
+					<select id="databits">
+					 <option value="seven">7</option>
+					 <option value="eight" selected="">8</option>
+					</select>
+					<select id="stopbits">
+					 <option value="one" selected="">1</option>
+					 <option value="two">2</option>
+					</select>
+					<select id="parity">
+					 <option value="no" selected="">none</option>
+					 <option value="odd">odd</option>
+					 <option value="even">even</option>
+					</select>
+					<select id="flowcontrol">
+					 <option value="0" selected="">off</option>
+					 <option value="1">rts</option>
+					 <option value="2">cts</option>
+					 <option value="3">rts+cts</option>
+					</select>
+			<button id="send">Оправить</button><input id="send-data" type="text" value="AT">
+        <span id="connect"></span></p>
+		<div class="pager">
+			<a id="pleft" class="left"></a>
+			<ul class="page-list">
+			</ul>
+			<a id="pright" class="right"></a>
+		</div>
+		<table id="t1">
+			<tr>
+				<td class="btn"><a class="buttons" id="AT">AT</a></td>
+				<td class="param"></td>
+				<td class="descr">Проверка запуска</td>
+			</tr>
+			<tr>
+				<td class="btn"><a class="buttons" id="AT+RST">AT+RST</a></td>
+				<td class="param"></td>
+				<td class="descr">Рестарт</td>
+			</tr>
+			<tr>
+				<td class="btn"><a class="buttons" id="AT+GMR">AT+GMR</a></td>
+				<td class="param"></td>
+				<td class="descr">Просмотр информации о версиях</td>
+			</tr>
+			<tr>
+				<td class="btn"><a class="buttons-param" id="AT+GSLP=">AT+GSLP=</a></td>
+				<td class="param"><input id="param-AT+GSLP=" type="text" value="1000"></td>
+				<td class="descr">Активация режима глубокого сна. <время> через которое ESP8266 "уснет"</td>
+			</tr>
+			<tr>
+				<td class="btn"><a class="buttons-param" id="ATE">ATE</a></td>
+				<td class="param"><input id="param-ATE" type="text" value="1"></td>
+				<td class="descr">	Эхo<input type="button" class="param-change" param="0" value="0 выкл">
+											<input type="button" class="param-change" param="1" value="1 вкл"></td>
+			</tr>
+			<tr>
+				<td class="btn"><a class="buttons" id="AT+RESTORE">AT+RESTORE</a></td>
+				<td class="param"></td>
+				<td class="descr">Сброс к заводским настройкам</td>
+			</tr>
+			<tr>
+				<td class="btn"><a class="buttons-param" id="AT+UART_CUR=">AT+UART_CUR=</a></td>
+				<td class="param"><input id="param-AT+UART_CUR=" type="text" value="115200,8,1,0,0"></td>
+				<td class="descr">UART в текущей сессии <скорость>, <биты данных>, <стоп-биты>, <четность>, <поток>
+					<select class="param-select">
+					 <option value="1200">1200</option>
+					 <option value="2400">2400</option>
+					 <option value="4800">4800</option>
+					 <option value="9600">9600</option>
+					 <option value="14400">14400</option>
+					 <option value="19200">19200</option>
+					 <option value="38400">38400</option>
+					 <option value="57600">57600</option>
+					 <option value="115200" selected="">115200</option>
+					 <option value="128000">128000</option>
+					 <option value="256000">256000</option>
+					</select>
+					<select class="param-select">
+					 <option value="7">7</option>
+					 <option value="8" selected="">8</option>
+					</select>
+					<select class="param-select">
+					 <option value="1" selected="">1</option>
+					 <option value="3">2</option>
+					</select>
+					<select class="param-select">
+					 <option value="0" selected="">none</option>
+					 <option value="1">odd</option>
+					 <option value="2">even</option>
+					</select>
+					<select class="param-select">
+					 <option value="0" selected="">off</option>
+					 <option value="1">rts</option>
+					 <option value="2">cts</option>
+					 <option value="3">rts+cts</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td class="btn"><a class="buttons-param" id="AT+UART_DEF=">AT+UART_DEF=</a></td>
+				<td class="param"><input id="param-AT+UART_DEF=" type="text" value="115200,8,1,0,0"></td>
+				<td class="descr">UART дефолт(записывается на FLASH) <скорость>, <биты данных>, <стоп-биты>, <четность>, <поток>
+					<select class="param-select">
+					 <option value="1200">1200</option>
+					 <option value="2400">2400</option>
+					 <option value="4800">4800</option>
+					 <option value="9600">9600</option>
+					 <option value="14400">14400</option>
+					 <option value="19200">19200</option>
+					 <option value="38400">38400</option>
+					 <option value="57600">57600</option>
+					 <option value="115200" selected="">115200</option>
+					 <option value="128000">128000</option>
+					 <option value="256000">256000</option>
+					</select>
+					<select class="param-select">
+					 <option value="7">7</option>
+					 <option value="8" selected="">8</option>
+					</select>
+					<select class="param-select">
+					 <option value="1" selected="">1</option>
+					 <option value="3">2</option>
+					</select>
+					<select class="param-select">
+					 <option value="0" selected="">none</option>
+					 <option value="1">odd</option>
+					 <option value="2">even</option>
+					</select>
+					<select class="param-select">
+					 <option value="0" selected="">off</option>
+					 <option value="1">rts</option>
+					 <option value="2">cts</option>
+					 <option value="3">rts+cts</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td class="btn"><a class="buttons" id="AT+SLEEP">AT+SLEEP</a></td>
+				<td class="param"><input id="param-AT+SLEEP" type="text" value="?"></td>
+				<td class="descr">Режим сна <input type="button" class="param-change" param="=0" value="=0 выкл">
+											<input type="button" class="param-change" param="=1" value="=1 негл">
+											<input type="button" class="param-change" param="=2" value="=2 модем">
+											<input type="button" class="param-change" param="?" value="? запрос">
+				</td>
+			</tr>
+		</table>
+		<table id="t2">
+			<tr>
+				<td class="btn"><a class="buttons" id="AT+CIPSTATUS">AT+CIPSTATUS</a></td>
+				<td class="param"></td>
+				<td class="descr">Получение информации о соединении</td>
+			</tr>
+			<tr>
+				<td class="btn"><a class="buttons-param" id="AT+CIPSTART=">AT+CIPSTART=</a></td>
+				<td class="param"><input id="param-AT+CIPSTART=" type="text" value='"TCP","192.168.0.1",80'></td>
+				<td class="descr">Запуск соединения (как клиент)
+					<select class="param-select">
+					 <option value='"TCP"' selected="">TCP</option>
+					 <option value='"UDP"'>UDP</option>
+					</select>
+					<select class="param-select">
+					 <option value='"192.168.0.1"' selected="">default</option>
+					</select>
+					<select class="param-select">
+					 <option value="80" selected="">80</option>
+					</select>
+					<!-- <input type="button" class="param-change" param="?" value="? запрос"> -->
+				</td>
+			</tr>
+			<tr>
+				<td class="btn"><a class="buttons-param" id="AT+CIPSEND=">AT+CIPSEND=</a></td>
+				<td class="param"><input id="param-AT+CIPSEND=" type="text" value="?"></td>
+				<td class="descr">	Отправка данных <input type="button" class="param-change" param="?" value="? запрос">
+			</tr>
+			<tr>
+				<td class="btn"><a class="buttons-param" id="AT+CIPSENDEX=">AT+CIPSENDEX=</a></td>
+				<td class="param"><input id="param-AT+CIPSEND=" type="text" value="?"></td>
+				<td class="descr">	Отправка данных (данные отправляются при достижении указанного размера или «\0»)<input type="button" class="param-change" param="?" value="? запрос">
+			</tr>
+			<tr>
+				<td class="btn"><a class="buttons-param" id="AT+CIPSENDBUF=">AT+CIPSENDBUF=</a></td>
+				<td class="param"><input id="param-AT+CIPSENDBUF=" type="text" value="0"></td>
+				<td class="descr">	Запись данных в буфер для отправки по TCP
+			</tr>
+			<tr>
+				<td class="btn"><a class="buttons" id="AT+CIPBUFRESET">AT+CIPBUFRESET</a></td>
+				<td class="param"></td>
+				<td class="descr">	Сброс счетчика ID сегментов
+			</tr>
+			<tr>
+				<td class="btn"><a class="buttons-param" id="AT+CIPCHECKSEG=">AT+CIPCHECKSEG==</a></td>
+				<td class="param"><input id="param-AT+CIPCHECKSEG=" type="text" value="0"></td>
+				<td class="descr">	Проверка, отправлен ли конкретный сегмент или нет
+			</tr>
+			<tr>
+				<td class="btn"><a class="buttons-param" id="AT+CIPCLOSE">AT+CIPCLOSE</a></td>
+				<td class="param"><input id="param-AT+CIPCLOSE" type="text" value="?"></td>
+				<td class="descr">	Закрытие TCP/UDP соединение<input type="button" class="param-change" param="?" value="? запрос">
+			</tr>
+			<tr>
+				<td class="btn"><a class="buttons" id="AT+CIFSR">AT+CIFSR</a></td>
+				<td class="param"></td>
+				<td class="descr">	Получение локального IP-адреса
+			</tr>
+			<tr>
+				<td class="btn"><a class="buttons-param" id="AT+CIPMUX">AT+CIPMUX</a></td>
+				<td class="param"><input id="param-AT+CIPMUX" type="text" value="?"></td>
+				<td class="descr">	Закрытие TCP/UDP соединение
+									<input type="button" class="param-change" param="?" value="? запрос">
+									<input type="button" class="param-change" param="=0" value="0 одинарное">
+									<input type="button" class="param-change" param="=1" value="1 несколько ">
+			</tr>
+			<tr>
+				<td class="btn"><a class="buttons-param" id="AT+CIPSERVER=">AT+CIPSERVER=</a></td>
+				<td class="param"><input id="param-AT+CIPSERVER=" type="text" value="0"></td>
+				<td class="descr">	Установка ESP8266 как сервера
+									<input type="button" class="param-change" param="0" value="0 удаление">
+									<input type="button" class="param-change" param="1" value="1 создание ">
+			</tr>
+			<tr>
+				<td class="btn"><a class="buttons-param" id="AT+CIPMODE">AT+CIPMODE</a></td>
+				<td class="param"><input id="param-AT+CIPMODE" type="text" value="?"></td>
+				<td class="descr">	Установка режима передачи данных
+									<input type="button" class="param-change" param="?" value="? запрос">
+									<input type="button" class="param-change" param="=0" value="0 нормальный ">
+									<input type="button" class="param-change" param="=1" value="1 сквозной UART-WiFi">
+			</tr>
+			<tr>
+				<td class="btn"><a class="buttons-param" id="AT+SAVETRANSLINK=">AT+SAVETRANSLINK=</a></td>
+				<td class="param"><input id="param-AT+SAVETRANSLINK=" type="text" value='1, "192.168.6.110", 1002, "TCP"'></td>
+				<td class="descr">	Создание канала связи для прозрачной передачи данных на FLASH <режим>, <'ip'>, <порт>[, <тип>]
+									<input type="button" class="param-change" param='1, "192.168.6.110", 1002, "TCP"' value="пример">
+			</tr>
+			<tr>
+				<td class="btn"><a class="buttons-param" id="AT+CIPSTO">AT+CIPSTO</a></td>
+				<td class="param"><input id="param-AT+CIPSTO" type="text" value="?"></td>
+				<td class="descr">	Установка задержки (если ESP8266 работает как сервер) <время> 0-7200 сек
+									<input type="button" class="param-change" param="?" value="? запрос">
+									<input type="button" class="param-change" param="=10" value="10">
+			</tr>
+			<tr>
+				<td class="btn"><a class="buttons" id="AT+CIUPDATE">AT+CIUPDATE</a></td>
+				<td class="param"></td>
+				<td class="descr">	Запуск обновления через сеть. Ответ: 0 — сервер найден, 1 — подключение к серверу, 2 — загрузка прошивки, 4 — начало обновления
+			</tr>
+			<tr>
+				<td class="btn"><a class="buttons-param" id="AT+PING=">AT+PING=</a></td>
+				<td class="param"><input id="param-AT+PING=" type="text" value='"192.168.1.1"'></td>
+				<td class="descr">	Пинг
+			</tr>
+		</table>
+
+		<div id="transmitted">&nbsp
+		</div>
+		<div id="received">
+			<p class="received">Received:</p>
+			<button id="clear">Clear</button>
+			<p id="rec"></p>
+		</div>
+
+  <script src="js/main.js" type="text/javascript"></script>
+</body>
+</html>
