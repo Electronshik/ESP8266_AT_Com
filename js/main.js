@@ -45,11 +45,8 @@ chrome.serial.getDevices(onGetDevices);
 
 var onConnect = function(connectionInfo)
 {
-   // The serial port has been opened. Save its id to use later.
   _this.connectionId = connectionInfo.connectionId;
-  // Do whatever you need to do with the opened port.
 }
-// Connect to the serial port /dev/ttyS01
 // chrome.serial.connect("COM3", {bitrate: 9600}, function(connectionInfo) {
 //   $('#list').append('OK: CONNECTED'+connectionInfo.connectionId);
 //   connectionId = connectionInfo.connectionId;});
@@ -61,7 +58,6 @@ var writeSerial=function(str)
   $('#transmitted').prepend(str+'<br>');
 }
 
-// Convert string to ArrayBuffer
 var convertStringToArrayBuffer=function(str)
 {
   var buf=new ArrayBuffer(str.length);
@@ -73,8 +69,8 @@ var convertStringToArrayBuffer=function(str)
   return buf;
 }
 
-
-function convertArrayBufferToString(buf){
+function convertArrayBufferToString(buf)
+{
   var bufView = new Uint8Array(buf);
   var encodedString = String.fromCharCode.apply(null, bufView);
   return decodeURIComponent(encodedString);
@@ -89,10 +85,14 @@ var onReceiveCallback = function(info)
 
 //chrome.serial.onReceive.addListener(onReceiveCallback);
 
-var onDisconnect = function(result) {
-  if (result) {
+var onDisconnect = function(result)
+{
+  if (result)
+  {
     $('#connect').html("Disconnected from the serial port<br>");
-  } else {
+  }
+  else
+  {
     $('#connect').html("Disconnect failed<br>");
   }
   chrome.serial.onReceive.removeListener(onReceiveCallback);
